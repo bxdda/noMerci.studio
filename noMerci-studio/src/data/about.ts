@@ -1,29 +1,20 @@
 export const aboutData = {
   title: "About",
-  tagline: "Creative systems, interactive worlds, and identity-driven design.",
 
   sections: [
     {
       heading: "Overview",
       text: [
-        "No Merci is a creative studio focused on building interactive experiences that feel intentional, immersive, and distinct.",
-        "The work blends game development, web design, and system-level thinking to create projects with strong identity and technical depth.",
+        "We are a U.S.-based game studio focused on building high-performance, interactive experiences using Java. Our work is powered by LibGDX for cross-platform development and Spine for fluid, expressive animation",
+        "We specialize in blending 2D and 3D systems to create unique visual styles and responsive gameplay. From browser-based releases to desktop experiences, our goal is to deliver games that feel fast, polished, and intentional",
       ],
     },
     {
-      heading: "Philosophy",
+      heading: "Contact",
       text: [
-        "Every project should feel like it belongs to its own world.",
-        "Clarity, responsiveness, and subtle motion are prioritized over noise.",
-        "The goal is not just to build something functional, but something memorable.",
-      ],
-    },
-    {
-      heading: "Focus",
-      text: [
-        "Game development using LibGDX, Spine, and physics systems",
-        "Interactive web experiences with smooth transitions and modern UI",
-        "Systems that merge visual design with technical execution",
+      "For collaborations, oppurtunities, questions or concerns:",
+      "> contact@nomerci.studio",
+      "> bxdda@bxdda.com"
       ],
     },
   ],

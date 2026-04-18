@@ -1,18 +1,75 @@
 ---
 import SiteMenu from "./SiteMenu";
+
+const pathname = Astro.url.pathname;
+
+let pageLabel = "";
+let subLabel = "";
+
+if (pathname === "/about") {
+  pageLabel = "About";
+} else if (pathname === "/games") {
+  pageLabel = "Games";
+} else if (pathname.startsWith("/games/")) {
+  // Show both the section and the specific game name
+  pageLabel = "Games";
+  const slug = pathname.split("/").filter(Boolean)[1];
+
+  const gameTitles: Record<string, string> = {
+    expansion: "Expansion",
+    succumb: "Succumb",
+    ints: "INTS",
+  };
+
+  subLabel = gameTitles[slug] ?? "";
+}
 ---
 
 <nav class="fixed inset-x-0 top-0 z-50 px-4 md:px-6">
   <div class="mx-auto max-w-7xl overflow-visible">
     <div class="relative -mt-4 overflow-hidden rounded-[2rem] border border-[#0d0d0d] bg-[#0d0d0d] px-5 pb-3 pt-7 shadow-[0_10px_30px_rgba(0,0,0,0.3)] md:px-7 md:pb-4 md:pt-8">
       <div class="flex items-center justify-between">
-        <a
-          href="/"
-          class="text-sm font-medium tracking-[0.08em] text-white transition hover:text-zinc-300"
-          style="font-family: 'Space Grotesk', sans-serif;"
-        >
-          noMerci
-        </a>
+        <div class="flex items-center gap-3">
+          <a
+            href="/"
+            class="text-sm font-medium tracking-[0.08em] text-white transition hover:text-zinc-300"
+            style="font-family: 'Space Grotesk', sans-serif;"
+          >
+            noMerci
+          </a>
+
+          {subLabel ? (
+            // Show nested breadcrumbs: / GAMES / {GameName}
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-zinc-600">/</span>
+              <a
+                href="/games"
+                class="text-xs uppercase tracking-[0.16em] text-zinc-400 transition hover:text-zinc-200"
+                style="font-family: 'Space Grotesk', sans-serif;"
+              >
+                {pageLabel}
+              </a>
+              <span class="text-xs text-zinc-600">/</span>
+              <span
+                class="text-xs uppercase tracking-[0.16em] text-zinc-400"
+                style="font-family: 'Space Grotesk', sans-serif;"
+              >
+                {subLabel}
+              </span>
+            </div>
+          ) : pageLabel ? (
+            // Show simple breadcrumb: / {PageName}
+            <div class="flex items-center gap-3">
+              <span class="text-xs text-zinc-600">/</span>
+              <span
+                class="text-xs uppercase tracking-[0.16em] text-zinc-400"
+                style="font-family: 'Space Grotesk', sans-serif;"
+              >
+                {pageLabel}
+              </span>
+            </div>
+          ) : null}
+        </div>
 
         <SiteMenu client:load />
       </div>

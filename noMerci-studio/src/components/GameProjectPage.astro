@@ -28,37 +28,39 @@ const {
 } = Astro.props as Props;
 ---
 
-<main class="pt-28 md:pt-36">
+<main class="pt-24 md:pt-28">
   <section class="mx-auto max-w-6xl px-6 pb-16 md:pb-24">
-    <div class="max-w-4xl">
+    <div class="flex items-start justify-between gap-8">
+      <div class="max-w-4xl">
+        <h1 class="text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
+          {title}
+        </h1>
+
+        <p class="mt-6 max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">
+          {subtitle}
+        </p>
+
+        {playHref && (
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a
+              href={playHref}
+              target="_blank"
+              rel="noreferrer"
+              class="rounded-full bg-white px-6 py-3 text-sm text-black transition hover:opacity-90"
+            >
+              {playLabel}
+            </a>
+          </div>
+        )}
+      </div>
+
       <a
         href="/games"
-        class="inline-flex items-center text-sm text-zinc-400 transition hover:text-white"
+        class="mt-1 inline-flex shrink-0 items-center text-2xl leading-none text-zinc-400 transition hover:text-white"
         aria-label="Back to games"
       >
         ←
       </a>
-
-      <h1 class="mt-6 text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
-        {title}
-      </h1>
-
-      <p class="mt-6 max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">
-        {subtitle}
-      </p>
-
-      {playHref && (
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a
-            href={playHref}
-            target="_blank"
-            rel="noreferrer"
-            class="rounded-full bg-white px-6 py-3 text-sm text-black transition hover:opacity-90"
-          >
-            {playLabel}
-          </a>
-        </div>
-      )}
     </div>
   </section>
 
