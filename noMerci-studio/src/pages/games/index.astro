@@ -8,22 +8,9 @@ import { games } from "../../data/games";
 <BaseLayout title="games">
   <Navbar />
 
-  <main class="pt-28 md:pt-36">
-    <section class="mx-auto max-w-6xl px-6">
-      <div class="max-w-3xl">
-        <h1 class="text-4xl font-semibold tracking-[-0.03em] text-white md:text-6xl">
-          Games
-        </h1>
-
-        <p class="mt-6 text-sm leading-7 text-zinc-400 md:text-base">
-          A growing lineup of interactive experiences from No Merci, ranging from
-          live releases to projects still taking shape.
-        </p>
-      </div>
-    </section>
-
-    <section class="mx-auto mt-14 max-w-6xl px-6 pb-24 md:mt-18 md:pb-32">
-      <div class="space-y-8">
+  <main class="pt-28 md:pt-3">
+    <section class="mx-auto mt-14 max-w-6xl px-10 pb-24 md:mt-18 md:pb-32">
+      <div class="space-y-4">
         {games.map((game) => (
           <GameCard {...game} />
         ))}

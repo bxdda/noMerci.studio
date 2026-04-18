@@ -1,4 +1,10 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 
 const baseCards = [
   {
@@ -8,12 +14,12 @@ const baseCards = [
   },
   {
     title: "Succumb",
-    image: "/images/test.png",
+    image: "/images/logo1.png",
     href: "/games/succumb",
   },
   {
     title: "INTS",
-    image: "/images/test.png",
+    image: "/images/logo1.png",
     href: "/games/ints",
   },
 ];
@@ -23,10 +29,69 @@ export default function ShowcaseCarousel() {
 
   const cards = useMemo(() => [...baseCards, ...baseCards], []);
 
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  useEffect(() => {
+    let frameId = 0;
+
+    const updateCardFocus = () => {
+      const viewport = viewportRef.current;
+
+      if (!viewport) {
+        frameId = requestAnimationFrame(updateCardFocus);
+        return;
+      }
+
+      const viewportRect = viewport.getBoundingClientRect();
+      const viewportCenterX = viewportRect.left + viewportRect.width / 2;
+
+      // How wide the "focus zone" is around the center.
+      // Increase for a softer transition, decrease for a tighter spotlight.
+      const focusRadius = viewportRect.width * 0.32;
+
+      for (const card of cardRefs.current) {
+        if (!card) continue;
+
+        const rect = card.getBoundingClientRect();
+        const cardCenterX = rect.left + rect.width / 2;
+        const distanceFromCenter = Math.abs(cardCenterX - viewportCenterX);
+
+        // 1 when centered, 0 when outside focus radius
+        const normalized = Math.max(
+          0,
+          1 - distanceFromCenter / focusRadius
+        );
+
+        // Ease it so the effect feels smoother
+        const focus = normalized * normalized;
+
+        // Interpolate visual values
+        const blur = 1.2 - focus * 1.2; // 1.2px -> 0px
+        const brightness = 0.85 + focus * 0.15; // 0.85 -> 1
+        const opacity = 0.75 + focus * 0.25; // 0.75 -> 1
+
+        card.style.setProperty("--card-blur", `${blur}px`);
+        card.style.setProperty("--card-brightness", `${brightness}`);
+        card.style.setProperty("--card-opacity", `${opacity}`);
+        card.style.setProperty("--card-focus", `${focus}`);
+      }
+
+      frameId = requestAnimationFrame(updateCardFocus);
+    };
+
+    frameId = requestAnimationFrame(updateCardFocus);
+
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
   return (
     <section className="relative -mt-40 overflow-hidden px-6 pb-24 pt-8 md:-mt-48 md:pb-32 md:pt-10">
       <div className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden py-12 md:py-14">
+        <div
+          ref={viewportRef}
+          className="relative overflow-hidden py-12 md:py-14"
+        >
           <div className="showcase-track flex w-max items-center gap-8 md:gap-10">
             {cards.map((card, index) => {
               const hovered = hoveredIndex === index;
@@ -48,6 +113,9 @@ export default function ShowcaseCarousel() {
               return (
                 <a
                   key={`${card.title}-${index}`}
+                  ref={(el) => {
+                    cardRefs.current[index] = el;
+                  }}
                   href={card.href}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
@@ -90,31 +158,19 @@ export default function ShowcaseCarousel() {
         }
 
         .showcase-card {
-          filter: blur(1.2px) brightness(0.85);
-          opacity: 0.75;
+          --card-blur: 1.2px;
+          --card-brightness: 0.85;
+          --card-opacity: 0.75;
+          --card-focus: 0;
+
+          filter: blur(var(--card-blur)) brightness(var(--card-brightness));
+          opacity: var(--card-opacity);
+
           transition:
             transform 500ms ease,
-            filter 500ms ease,
-            opacity 500ms ease;
-          will-change: transform;
-        }
-
-        .showcase-card:nth-child(6n + 1),
-        .showcase-card:nth-child(6n + 6) {
-          filter: blur(2.4px) brightness(0.75);
-          opacity: 0.5;
-        }
-
-        .showcase-card:nth-child(6n + 2),
-        .showcase-card:nth-child(6n + 5) {
-          filter: blur(1.5px) brightness(0.85);
-          opacity: 0.7;
-        }
-
-        .showcase-card:nth-child(6n + 3),
-        .showcase-card:nth-child(6n + 4) {
-          filter: blur(0);
-          opacity: 1;
+            filter 220ms linear,
+            opacity 220ms linear;
+          will-change: transform, filter, opacity;
         }
 
         .showcase-card:hover {

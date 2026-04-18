@@ -21,7 +21,7 @@ export const games: Game[] = [
     title: "Succumb",
     status: "In Development",
     description: "A cinematic 2.5D project in development.",
-    image: "/images/test.png",
+    image: "/images/logo1.png",
     href: "/games/succumb",
   },
   {
@@ -29,7 +29,7 @@ export const games: Game[] = [
     title: "INTS",
     status: "In Development",
     description: "An upcoming project from No Merci.",
-    image: "/images/test.png",
+    image: "/images/logo1.png",
     href: "/games/ints",
   },
 ];
