@@ -7,16 +7,7 @@
       style="font-family: 'Inter', sans-serif; font-weight: 600;"
       aria-label="noMerci"
     >
-      <!-- 🔥 Only these two are interactive -->
-      <span class="hero-letter hero-letter-active">n</span>
-      <span class="hero-letter hero-letter-active">o</span>
-
-      <!-- Static letters -->
-      <span class="hero-letter">M</span>
-      <span class="hero-letter">e</span>
-      <span class="hero-letter">r</span>
-      <span class="hero-letter">c</span>
-      <span class="hero-letter">i</span>
+      <span class="hero-letter">n</span><span class="hero-letter">o</span><span class="hero-letter">M</span><span class="hero-letter">e</span><span class="hero-letter">r</span><span class="hero-letter">c</span><span class="hero-letter">i</span>
     </h1>
 
     <p
@@ -31,17 +22,16 @@
 <style>
   .hero-wordmark {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     gap: 0;
     white-space: nowrap;
+    cursor: default;
   }
 
   .hero-letter {
     display: inline-block;
     color: white;
-  }
-
-  /* 🔥 ONLY n + o respond */
-  .hero-letter-active {
     transition:
       color 220ms ease,
       transform 220ms ease,
@@ -49,18 +39,22 @@
     will-change: color, transform, text-shadow;
   }
 
-  .hero-letter-active:hover {
-    color: rgb(239 68 68);
-    transform: translateY(-1px);
-    text-shadow: 0 0 14px rgba(239, 68, 68, 0.3);
+  .hero-wordmark:hover .hero-letter {
+    color: white;
   }
 
-  /* Animations unchanged */
+  .hero-wordmark .hero-letter:hover {
+    color: rgb(239 68 68);
+    transform: translateY(-1px);
+    text-shadow: 0 0 14px rgba(239, 68, 68, 0.28);
+  }
+
   .animate-hero-title {
     opacity: 0;
     filter: blur(10px);
     transform: translateY(18px) scale(0.985);
     animation: hero-title-in 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    will-change: transform, opacity, filter;
   }
 
   .animate-hero-subtitle {
@@ -68,6 +62,7 @@
     filter: blur(8px);
     transform: translateY(14px);
     animation: hero-subtitle-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards;
+    will-change: transform, opacity, filter;
   }
 
   @keyframes hero-title-in {
@@ -98,6 +93,20 @@
       opacity: 1;
       filter: blur(0);
       transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-letter {
+      transition: none;
+    }
+
+    .animate-hero-title,
+    .animate-hero-subtitle {
+      opacity: 1;
+      filter: blur(0);
+      transform: none;
+      animation: none;
     }
   }
 </style>
