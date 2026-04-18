@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Navbar from "../../components/Navbar.astro";
+import GameProjectPage from "../../components/GameProjectPage.astro";
+import { gameProjects } from "../../data/projects";
+
+const project = gameProjects.succumb;
+---
+
+<BaseLayout title={`${project.title} | No Merci`}>
+  <Navbar />
+  <GameProjectPage {...project} />
+</BaseLayout>

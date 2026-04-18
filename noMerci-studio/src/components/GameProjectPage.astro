@@ -1,0 +1,133 @@
+---
+type Props = {
+  title: string;
+  subtitle: string;
+  playHref?: string;
+  playLabel?: string;
+  imageSrc: string;
+  imageAlt: string;
+  paragraphs: string[];
+  status: string;
+  platform: string;
+  type: string;
+  builtWith: string[];
+};
+
+const {
+  title,
+  subtitle,
+  playHref,
+  playLabel = "Open Project",
+  imageSrc,
+  imageAlt,
+  paragraphs,
+  status,
+  platform,
+  type,
+  builtWith,
+} = Astro.props as Props;
+---
+
+<main class="pt-28 md:pt-36">
+  <section class="mx-auto max-w-6xl px-6 pb-16 md:pb-24">
+    <div class="max-w-4xl">
+      <a
+        href="/games"
+        class="inline-flex items-center text-sm text-zinc-400 transition hover:text-white"
+        aria-label="Back to games"
+      >
+        ←
+      </a>
+
+      <h1 class="mt-6 text-4xl font-semibold tracking-[-0.04em] text-white md:text-6xl">
+        {title}
+      </h1>
+
+      <p class="mt-6 max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">
+        {subtitle}
+      </p>
+
+      {playHref && (
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a
+            href={playHref}
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-full bg-white px-6 py-3 text-sm text-black transition hover:opacity-90"
+          >
+            {playLabel}
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20 md:pb-28">
+    <div class="grid items-start gap-12 md:grid-cols-[1.2fr_0.8fr] md:gap-16">
+      <div>
+        <div class="space-y-5 text-sm leading-7 text-zinc-400 md:text-base">
+          {paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+        <div class="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            class="w-full object-cover"
+          />
+        </div>
+      </div>
+
+      <aside class="self-start mb-16">
+        <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
+          <div class="space-y-8">
+            <div>
+              <p class="text-xs uppercase tracking-[0.25em] text-zinc-500">
+                Status
+              </p>
+              <p class="mt-2 text-sm text-zinc-200">
+                {status}
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs uppercase tracking-[0.25em] text-zinc-500">
+                Platform
+              </p>
+              <p class="mt-2 text-sm text-zinc-200">
+                {platform}
+              </p>
+            </div>
+
+            <div>
+              <p class="text-xs uppercase tracking-[0.25em] text-zinc-500">
+                Type
+              </p>
+              <p class="mt-2 text-sm text-zinc-200">
+                {type}
+              </p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mx-auto mt-16 max-w-6xl px-6 pb-28 md:pb-32">
+    <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
+      <h2 class="text-2xl font-semibold tracking-[-0.03em] text-white">
+        Built with
+      </h2>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        {builtWith.map((item) => (
+          <span class="rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-300">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+</main>

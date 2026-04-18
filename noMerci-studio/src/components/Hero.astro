@@ -1,0 +1,103 @@
+<section class="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-6 pt-0 text-center">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.05),transparent_42%)]"></div>
+
+  <div class="relative z-10 mx-auto max-w-7xl">
+    <h1
+      class="animate-hero-title hero-wordmark text-7xl tracking-[-0.06em] md:text-9xl lg:text-[11rem]"
+      style="font-family: 'Inter', sans-serif; font-weight: 600;"
+      aria-label="noMerci"
+    >
+      <!-- 🔥 Only these two are interactive -->
+      <span class="hero-letter hero-letter-active">n</span>
+      <span class="hero-letter hero-letter-active">o</span>
+
+      <!-- Static letters -->
+      <span class="hero-letter">M</span>
+      <span class="hero-letter">e</span>
+      <span class="hero-letter">r</span>
+      <span class="hero-letter">c</span>
+      <span class="hero-letter">i</span>
+    </h1>
+
+    <p
+      class="animate-hero-subtitle mx-auto mt-8 max-w-3xl text-lg leading-8 md:text-xl"
+      style="font-family: 'Inter', sans-serif; font-weight: 500; color: rgba(255,255,255,0.85);"
+    >
+      Game worlds with identity.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero-wordmark {
+    display: inline-flex;
+    gap: 0;
+    white-space: nowrap;
+  }
+
+  .hero-letter {
+    display: inline-block;
+    color: white;
+  }
+
+  /* 🔥 ONLY n + o respond */
+  .hero-letter-active {
+    transition:
+      color 220ms ease,
+      transform 220ms ease,
+      text-shadow 220ms ease;
+    will-change: color, transform, text-shadow;
+  }
+
+  .hero-letter-active:hover {
+    color: rgb(239 68 68);
+    transform: translateY(-1px);
+    text-shadow: 0 0 14px rgba(239, 68, 68, 0.3);
+  }
+
+  /* Animations unchanged */
+  .animate-hero-title {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(18px) scale(0.985);
+    animation: hero-title-in 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-hero-subtitle {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(14px);
+    animation: hero-subtitle-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards;
+  }
+
+  @keyframes hero-title-in {
+    0% {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(18px) scale(0.985);
+    }
+    60% {
+      opacity: 1;
+      filter: blur(2px);
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes hero-subtitle-in {
+    0% {
+      opacity: 0;
+      filter: blur(8px);
+      transform: translateY(14px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+</style>

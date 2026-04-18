@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import IntroOverlay from "../components/IntroOverlay";
+import Hero from "../components/Hero.astro";
+import ShowcaseCarousel from "../components/ShowcaseCarousel";
+---
+
+<BaseLayout title="No Merci">
+  <div id="boot-splash"></div>
+
+  <IntroOverlay client:load />
+  <Navbar />
+  <Hero />
+  <ShowcaseCarousel client:load />
+
+  <script is:inline>
+    (() => {
+      const alreadySeen = sessionStorage.getItem("nomerci-intro-seen");
+      const splash = document.getElementById("boot-splash");
+
+      if (alreadySeen && splash) {
+        splash.remove();
+      }
+    })();
+  </script>
+
+  <style is:inline>
+    #boot-splash {
+      position: fixed;
+      inset: 0;
+      background: black;
+      z-index: 199;
+      pointer-events: none;
+    }
+  </style>
+</BaseLayout>
