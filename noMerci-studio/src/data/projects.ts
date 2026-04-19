@@ -24,7 +24,7 @@ export const gameProjects: Record<string, GameProject> = {
     imageSrc: "/images/expansion.png",
     imageAlt: "Expansion screenshot",
     paragraphs: [
-      "Expansion is a daily word puzzle project centered on acronyms and their full forms. Players work from shortened clues toward the full phrase, combining recognition, inference, and vocabulary.",
+      "Expansion is a daily word puzzle project centered on acronyms and their full forms (expansions). Players work from shortened clues toward the full phrase, combining recognition, inference, and vocabulary.",
       "The project was designed as both a playable daily experience and a technical showcase for responsive UI, clean gameplay flow, and polished browser deployment.",
       "As part of the broader No Merci studio identity, Expansion represents a focused, accessible release with a distinct mechanic and strong visual simplicity.",
     ],
@@ -45,7 +45,7 @@ export const gameProjects: Record<string, GameProject> = {
     slug: "succumb",
     title: "Succumb",
     subtitle:
-      "A cinematic 2.5D project in development, built around atmosphere, animation, and hybrid visual design",
+      "A cinematic 2.5D project in development, built around atmosphere, animation, and hybrid visual design.",
     imageSrc: "/images/logo1.jpg",
     imageAlt: "— Media coming soon —",
     paragraphs: [
