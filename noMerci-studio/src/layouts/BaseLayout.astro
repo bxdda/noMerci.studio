@@ -1,19 +1,47 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import { defaultMeta, routeMeta } from "../data/metadata";
 
-const { title } = Astro.props;
+const { title: customTitle, description: customDescription, image: customImage } = Astro.props;
+
+const pathname = Astro.url.pathname;
+
+const matchedMeta = routeMeta[pathname] ?? {};
+
+const meta = {
+  ...defaultMeta,
+  ...matchedMeta,
+  ...(customTitle ? { title: customTitle } : {}),
+  ...(customDescription ? { description: customDescription } : {}),
+  ...(customImage ? { image: customImage } : {}),
+};
+
+const canonicalURL = new URL(pathname, Astro.site);
+const ogImageURL = new URL(meta.image, Astro.site);
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {title && title.toLowerCase() !== "home"
-        ? `${title} — noMerci Interactive`
-        : "noMerci Interactive"}
-    </title>
+
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="noMerci Interactive" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <ClientRouter />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
