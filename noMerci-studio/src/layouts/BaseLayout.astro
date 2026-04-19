@@ -28,6 +28,23 @@ const browserTitle =
   pathname === "/" || !customTitle || customTitle.toLowerCase() === "home"
     ? "noMerci Interactive"
     : `${customTitle} — noMerci Interactive`;
+
+function capitalizeFirstLetter(value: string) {
+  if (!value) return value;
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+const rawOgTitle =
+  pathname === "/" || meta.title.toLowerCase() === "home"
+    ? "noMerci Interactive"
+    : meta.title;
+
+const ogTitle =
+  pathname === "/games/ints"
+    ? "INTS"
+    : rawOgTitle === "noMerci Interactive"
+    ? rawOgTitle
+    : capitalizeFirstLetter(rawOgTitle);
 ---
 
 <html lang="en">
@@ -42,7 +59,7 @@ const browserTitle =
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="noMerci Interactive" />
-    <meta property="og:title" content={meta.title} />
+    <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={meta.description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={ogImageURL} />
@@ -51,7 +68,7 @@ const browserTitle =
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={meta.description} />
     <meta name="twitter:image" content={ogImageURL} />
 
@@ -74,3 +91,4 @@ const browserTitle =
     <slot />
   </body>
 </html>
+
