@@ -2,18 +2,19 @@
 import SiteMenu from "./SiteMenu";
 
 const pathname = Astro.url.pathname;
+const normalizedPath = pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
 
 let pageLabel = "";
 let subLabel = "";
 
-if (pathname === "/about") {
+if (normalizedPath === "/about") {
   pageLabel = "About";
-} else if (pathname === "/games") {
+} else if (normalizedPath === "/games") {
   pageLabel = "Games";
-} else if (pathname.startsWith("/games/")) {
-  // Show both the section and the specific game name
+} else if (normalizedPath.startsWith("/games/")) {
   pageLabel = "Games";
-  const slug = pathname.split("/").filter(Boolean)[1];
+
+  const slug = normalizedPath.split("/").filter(Boolean)[1];
 
   const gameTitles: Record<string, string> = {
     expansion: "Expansion",
@@ -39,7 +40,6 @@ if (pathname === "/about") {
           </a>
 
           {subLabel ? (
-            // Show nested breadcrumbs: / GAMES / {GameName}
             <div class="flex items-center gap-3">
               <span class="text-xs text-zinc-600">/</span>
               <a
@@ -58,7 +58,6 @@ if (pathname === "/about") {
               </span>
             </div>
           ) : pageLabel ? (
-            // Show simple breadcrumb: / {PageName}
             <div class="flex items-center gap-3">
               <span class="text-xs text-zinc-600">/</span>
               <span
