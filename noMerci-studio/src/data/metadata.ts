@@ -32,7 +32,7 @@ export const routeMeta: Record<string, Partial<PageMeta>> = {
   "/games/expansion": {
     title: "Expansion — noMerci Interactive",
     description:
-      "A daily acronym word game blending deduction, style, and modern interactive presentation.",
+      "Guess the word. Expand the acronym.",
   },
 
   "/games/succumb": {
