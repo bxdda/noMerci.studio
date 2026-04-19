@@ -23,6 +23,11 @@ const meta = {
 
 const canonicalURL = new URL(pathname, Astro.site);
 const ogImageURL = new URL(meta.image, Astro.site);
+
+const browserTitle =
+  pathname === "/" || !customTitle || customTitle.toLowerCase() === "home"
+    ? "noMerci Interactive"
+    : `${customTitle} — noMerci Interactive`;
 ---
 
 <html lang="en">
@@ -30,7 +35,7 @@ const ogImageURL = new URL(meta.image, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{meta.title}</title>
+    <title>{browserTitle}</title>
     <meta name="description" content={meta.description} />
     <link rel="canonical" href={canonicalURL} />
 
