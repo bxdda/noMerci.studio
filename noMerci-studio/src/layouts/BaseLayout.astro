@@ -43,8 +43,10 @@ const ogTitle =
   pathname === "/games/ints"
     ? "INTS"
     : rawOgTitle === "noMerci Interactive"
-    ? rawOgTitle
-    : capitalizeFirstLetter(rawOgTitle);
+      ? rawOgTitle
+      : capitalizeFirstLetter(rawOgTitle);
+
+const gaId = import.meta.env.PUBLIC_GA_ID;
 ---
 
 <html lang="en">
@@ -72,6 +74,22 @@ const ogTitle =
     <meta name="twitter:description" content={meta.description} />
     <meta name="twitter:image" content={ogImageURL} />
 
+    {gaId && (
+      <>
+        <!-- Google Analytics -->
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+        ></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+
     <ClientRouter />
 
     <!-- Fonts -->
@@ -91,4 +109,3 @@ const ogTitle =
     <slot />
   </body>
 </html>
-
