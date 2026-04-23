@@ -76,6 +76,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
 
     {gaId && (
       <>
+        <!-- Google Analytics -->
         <script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
@@ -83,23 +84,8 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         <script is:inline define:vars={{ gaId }}>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
-          window.gtag = gtag;
-
           gtag('js', new Date());
-
-          gtag('config', gaId, {
-            send_page_view: false
-          });
-
-          function trackPageView() {
-            gtag('event', 'page_view', {
-              page_title: document.title,
-              page_location: window.location.href,
-              page_path: window.location.pathname + window.location.search,
-            });
-          }
-
-          document.addEventListener('astro:page-load', trackPageView);
+          gtag('config', gaId);
         </script>
       </>
     )}
